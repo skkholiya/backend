@@ -26,5 +26,5 @@ class Lead(_LeadBase):
     id: int
     owner_id: int
     date_created: _dt.datetime
-    date_updated: _dt.datetime
+    date_last_updated: _dt.datetime
     model_config = _pydantic.ConfigDict(from_attributes=True)
