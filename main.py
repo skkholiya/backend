@@ -29,9 +29,12 @@ def generate_token(
 ):
     user = _services.authenticate_user(form_data.username,form_data.password,db)
     if not user:
-        raise _fastapi.HTTPException("Invalid credentials!!")
+        raise _fastapi.HTTPException(status_code=401,detail="Invalid credentials!!")
     return _services.create_token(user)
 
+@app.get("/api/users/me",response_model=_schema.User)
+def get_user(user:_schema.User= _fastapi.Depends(_services.get_current_user)):
+    return user
 
 @app.get("/")
 def root(db: Session = _fastapi.Depends(_database.get_db)):
